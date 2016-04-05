@@ -8,6 +8,11 @@ var detectCurrentPlatform = require('../lib/detectCurrentPlatform.js');
 var argv = optimist
     .usage('Usage: nwbuild [options] [path]')
 
+    .alias('s', 'sdk')
+    .default('s', false)
+    .describe('s', 'If true install the sdk version -- should be used with force to override another version')
+    .boolean('s')
+
     .alias('p', 'platforms')
     .default('p', 'osx32,osx64,win32,win64')
     .describe('p', 'Platforms to build, comma-sperated, can be: win32,win64,osx32,osx64,linux32,linux64')
@@ -69,7 +74,8 @@ var options = {
     winIco: argv.winIco || false,
     cacheDir: argv.cacheDir ? path.resolve(process.cwd(), argv.cacheDir) : path.resolve(__dirname, '..', 'cache'),
     buildDir: path.resolve(process.cwd(), argv.buildDir),
-    forceDownload: argv.forceDownload
+    forceDownload: argv.forceDownload,
+    sdk: argv.sdk
 };
 
 // Check Platform, if we are in run mode
